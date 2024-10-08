@@ -6,7 +6,7 @@ export const createPokemon = async (req, res) => {
         const newPokemon = await Pokemon.create(req.body)
         res.status(201).json(newPokemon)
     } catch (err) {
-        res.status(500).json({error : 'Faild to create Pokemon'})
+        res.status(500).json({error : 'Failed to create Pokemon'})
     }
 }
 
@@ -22,9 +22,8 @@ export const readAllPokemon = async (req, res) => {
 export const updatePokemonFavorite = async (req, res) => {
     try {
         const id = req.params.id
-        const data = req.body
-        await Pokemon.updateFavorite(id, data)
-        res.status(202).send(`Pokemon with id ${id} was successfully updated`)
+        await Pokemon.updateFavorite(id)
+        res.status(202).send({ message: `Pokemon with id ${id} was successfully updated` })
     } catch (err) {
         res.status(500).json({error : 'Failed to update Pokemon'})
     }
@@ -35,7 +34,7 @@ export const updatePokemon = async (req, res) => {
         const id = req.params.id
         const data = req.body
         await Pokemon.update(id, data)
-        res.status(202).send(`Pokemon with id ${id} was successfully updated`)
+        res.status(202).send({ message: `Pokemon with id ${id} was successfully updated` })
     } catch (err) {
         res.status(500).json({error : 'Failed to update Pokemon'})
     }
