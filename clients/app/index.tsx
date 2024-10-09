@@ -3,50 +3,80 @@ import { PokemonCard } from "@/components/pokemon/PokemonCard";
 import { ThemedText } from "@/components/ThemedText";
 import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { Link } from "expo-router";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
+import { SearchBar } from "@/components/Searchbar";
+import { Row } from "@/components/Row";
+import { SortButton } from "@/components/SortButton";
+import { RootView } from "@/components/RootView";
+
+type Pokemon = {
+  id: number;
+  pokedex_number: number;
+  name: string;
+  type1: string;
+  type2: string | null;
+  hp: number;
+  attack: number;
+  defense: number;
+  special_attack: number;
+  special_defense: number;
+  speed: number;
+  image_url: string;
+  isFavorite: number;
+};
 
 export default function Index() {
   const colors = useThemeColors()
-  const {data} = useFetchQuery('/pokemons')
-  const pokemons = data ?? []
+  const {data, isFetching} = useFetchQuery('/pokemons')
+  const [search, setSearch] = useState('')
+  const [sort, setSort] = useState<"id" | "name">('id');
+  const pokemons = data ?? [];
+  const filteredPokemons = [... (search ? pokemons.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.id.toString() === search) : pokemons)].sort((a,b) =>(a[sort] < b[sort] ? -1 : 1))
 
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: colors.tint}]}>
-      <View style={styles.header}>
-    <Image source={require("@/assets/images/Pokeball.png")} width={24} height={24}/>
-     <ThemedText variant="headline" color="grayDark">Pokedeksu</ThemedText>
-      </View>
+    <RootView>
+      <Row style={styles.header} gap={16}>
+          <Image source={require("@/assets/images/Pokeball.png")} width={24} height={24}/>
+          <ThemedText variant="headline" color="grayLight">Pokedeksu</ThemedText>
+      </Row>
+      <Row gap={16} style={styles.form}> 
+          <SearchBar value={search} onChange={setSearch}/> 
+          <SortButton value={sort} onChange={setSort}/>
+      </Row>
 
       <Card style={styles.body}>
           <FlatList 
-              data={pokemons} 
+              data={filteredPokemons} 
               numColumns={3} 
               columnWrapperStyle={styles.gridGap}
+              ListFooterComponent={
+                isFetching ? <ActivityIndicator color={colors.tint} /> : null
+              }
               contentContainerStyle={[styles.gridGap, styles.list]}
-              renderItem={({item}) => <PokemonCard id={item.id} name={item.name} image_url={item.image_url} style={{flex: 1/3}}/> } keyExtractor={(item) => item.id.toString()}/>
+              renderItem={({ item }: { item: Pokemon }) => ( 
+                <PokemonCard 
+                  pokemon={item}
+                    style={{ flex: 1 / 3 }} 
+                />
+            )} 
+            keyExtractor={(item) => item.id.toString()} 
+        />
       
       </Card>
-    </SafeAreaView>
+    </RootView>
   );
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding:4,
-
-  },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingBottom: 8,
   },
   body: {
     flex: 1,
+    marginTop: 16,
   },
   gridGap: {
     gap : 8,
@@ -54,4 +84,7 @@ const styles = StyleSheet.create({
   list: {
     padding : 12,
   },
+  form: {
+    paddingHorizontal: 12,
+  }
 })
