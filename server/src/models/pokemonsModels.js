@@ -3,9 +3,9 @@ import { db } from "../utils/db.js";
 export const Pokemon = {
 
     create : (pokemon) => {
-        const {pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url} = pokemon;
-        const query = "INSERT INTO pokemons (pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url, isFavorite) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)"
-        const params = [pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url]
+        const {pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url, description} = pokemon;
+        const query = "INSERT INTO pokemons (pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url, isFavorite, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)"
+        const params = [pokedex_number, name, type1, type2, hp, attack, defense, special_attack, special_defense, speed, image_url, description]
 
         return new Promise ((resolve, reject) => {
             db.run(query, params, (err) => {
