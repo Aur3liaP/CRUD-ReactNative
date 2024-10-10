@@ -25,6 +25,7 @@ type Pokemon = {
   speed: number;
   image_url: string;
   isFavorite: number;
+  description: string;
 };
 
 export default function Index() {

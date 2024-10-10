@@ -16,7 +16,7 @@ export const Colors = {
     grayWhite: "#FFFFFF",
   },
   type: {
-    Insecte: "A7B723",
+    Insecte: "#A7B723",
     Ténèbres: "#75574C",
     Dragon: "#7037FF",
     Electrik: "#F9CF30",

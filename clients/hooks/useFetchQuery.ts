@@ -17,6 +17,7 @@ type API = {
         speed: number;
         image_url: string;
         isFavorite: number;
+        description: string;
     }>
 }
 
@@ -24,7 +25,6 @@ export function useFetchQuery <T extends keyof API> (path: T) {
     return useQuery({
         queryKey: [path],
         queryFn: async () => {
-            await wait(1) 
             return fetch(endpoint+path, {
                 headers: {
                     Accept : 'application/json'
