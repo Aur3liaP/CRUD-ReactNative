@@ -9,14 +9,59 @@ import { Colors } from "@/constants/colors";
 import { Card } from "@/components/Card";
 import { PokemonType } from "@/components/pokemon/PokemonType";
 import { PokemonStats } from "@/components/pokemon/PokemonStats";
+import PagerView from "react-native-pager-view";
+import { useRef, useState } from "react";
 
 export default function Pokemon() {
+  const params = useLocalSearchParams() as {id : string}
+  const [id, setId] = useState(parseInt(params.id, 10))
+  const offset  = useRef(1)
+  const pager  = useRef<PagerView>(null)
+
+  const onPageSelected = (e : {nativeEvent: {position : number}}) => {
+    offset.current = e.nativeEvent.position - 1
+  }
+
+  const onPageScrollStateChanged = (e: {nativeEvent: {pageScrollState : string}}) => {
+    if (e.nativeEvent.pageScrollState !== 'idle') {
+      return
+    }
+    if (offset.current === -1 && id === 2){
+      return;
+    }
+    if (offset.current === -1 && id === 150){
+      return;
+    }
+    if (offset.current !== 0) {
+      setId(id + offset.current);
+      offset.current = 0;
+      pager.current?.setPageWithoutAnimation(1)
+    }
+  }
+
+  return (
+    <PagerView 
+      ref={pager}
+      onPageSelected={onPageSelected}
+      onPageScrollStateChanged={onPageScrollStateChanged}
+      initialPage={1} style={{flex:1}}>
+
+      <PokemonView key={id - 1} id={id-1}/>
+      <PokemonView key={id} id={id}/>
+      <PokemonView key={id + 1} id={id+1}/>
+    </PagerView>
+  );
+
+  return <PokemonView id={id}/>
+
+}
+
+function PokemonView({id}: {id: number}) {
   const colors = useThemeColors();
-  const params = useLocalSearchParams() as { id: string };
   const { data } = useFetchQuery("/pokemons");
   const pokemons = data ?? [];
-  const pokemon = pokemons.find((p) => p.id.toString() === params.id);
-  const id = parseInt(params.id, 10)
+  const pokemon = pokemons.find((p) => p.id === id);
+
   const colorType =
     pokemon?.type1 && pokemon?.type1 in Colors.type
       ? Colors.type[pokemon.type1 as keyof typeof Colors.type]
@@ -31,10 +76,10 @@ export default function Pokemon() {
   }
 
   const onPrevious = () => {
-    router.replace({pathname: '/pokemon/[id]', params: {id: Math.max(id - 1)}})
+    router.replace({pathname: '/pokemon/[id]', params: { id: Math.max(id - 1, 1) },})
   }
   const onNext = () => {
-    router.replace({pathname: '/pokemon/[id]', params: {id: Math.min(id + 1, 151)}})
+    router.replace({pathname: '/pokemon/[id]', params: { id: Math.min(id + 1, 151) },})
   }
 
   const isFirst = id === 1;
@@ -63,7 +108,7 @@ export default function Pokemon() {
             </Row>
           </Pressable>
           <ThemedText color="grayWhite" variant="subtitle2">
-            #{pokemon.id.toString().padStart(3, "0")}
+            #{id.toString().padStart(3, "0")}
           </ThemedText>
         </Row>
 
