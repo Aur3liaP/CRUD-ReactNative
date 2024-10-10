@@ -44,7 +44,7 @@ export default function TeamPage() {
                 height={32}
               />
               <ThemedText color="grayWhite" variant="headline">
-                TeamRocket Team
+                TeamRocket
               </ThemedText>
             </Row>
           </Pressable>
