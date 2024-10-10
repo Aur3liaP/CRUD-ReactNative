@@ -4,7 +4,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Link } from "expo-router";
 
-type Pokemon = {
+type Team = {
     id: number;
     pokedex_number: number;
     name: string;
@@ -17,30 +17,32 @@ type Pokemon = {
     special_defense: number;
     speed: number;
     image_url: string;
+    level: number;
     description: string;
 };
 
 type Props = {
     style?: ViewStyle;
-    pokemon: Pokemon;
+    pokeTeam: Team;
 };
 
-export function PokemonCard({ style, pokemon }: Props) {
+export function PokemonCardTeam({ style, pokeTeam }: Props) {
     const colors = useThemeColors();
 
     return (
         <Link
-            href={`/pokemon/${pokemon.id}`}
+            href={`/team/${pokeTeam.id}`}
             asChild
         >
             <Pressable android_ripple={{ color: colors.tint, foreground: true }} style={style}>
                 <Card style={[style, styles.card]}>
                     <ThemedText style={styles.id} variant="caption" color="grayMedium">
-                        #{pokemon.pokedex_number.toString().padStart(3, '0')}
+                        #{pokeTeam.pokedex_number.toString().padStart(3, '0')}
                     </ThemedText>
                     <View style={[styles.shadow, { backgroundColor: colors.grayBackground }]} />
-                    <Image source={{ uri: pokemon.image_url }} style={styles.image} />
-                    <ThemedText>{pokemon.name}</ThemedText>
+                    <Image source={{ uri: pokeTeam.image_url }} style={styles.image} />
+                    <ThemedText>{pokeTeam.name}</ThemedText>
+                    <ThemedText variant="caption">{pokeTeam.level}</ThemedText>
                 </Card>
             </Pressable>
         </Link>

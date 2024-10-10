@@ -3,13 +3,14 @@ import { PokemonCard } from "@/components/pokemon/PokemonCard";
 import { ThemedText } from "@/components/ThemedText";
 import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
-import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { SearchBar } from "@/components/Searchbar";
 import { Row } from "@/components/Row";
 import { SortButton } from "@/components/SortButton";
 import { RootView } from "@/components/RootView";
+import { Link } from "expo-router";
 
 type Pokemon = {
   id: number;
@@ -24,7 +25,6 @@ type Pokemon = {
   special_defense: number;
   speed: number;
   image_url: string;
-  isFavorite: number;
   description: string;
 };
 
@@ -40,7 +40,12 @@ export default function Index() {
     <RootView>
       <Row style={styles.header} gap={16}>
           <Image source={require("@/assets/images/Pokeball.png")} width={24} height={24}/>
-          <ThemedText variant="headline" color="grayLight">Pokedeksu</ThemedText>
+          <ThemedText variant="headline" color="grayWhite">Pokedeksu</ThemedText>
+          <Link href={`/team`} asChild>
+              <Pressable style={styles.team}>
+                <Image source={require("@/assets/images/TR.png")}/>
+              </Pressable>
+          </Link>
       </Row>
       <Row gap={16} style={styles.form}> 
           <SearchBar value={search} onChange={setSearch}/> 
@@ -73,7 +78,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 12,
-    paddingBottom: 8,
+    paddingVertical: 8,
+    paddingBottom: 24,
   },
   body: {
     flex: 1,
@@ -87,5 +93,12 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingHorizontal: 12,
+  },
+  team:{
+    position: 'absolute',
+    top: 8,
+    right: 12,
+    width: 35,
+    height: 35,
   }
 })

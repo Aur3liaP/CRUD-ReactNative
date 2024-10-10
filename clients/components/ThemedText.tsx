@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
         fontSize: 8,
         lineHeight: 12,
     },
+    subtitle: {
+        fontSize: 18,
+        lineHeight: 22,
+    },
     subtitle1: {
         fontSize: 14,
         lineHeight: 16,

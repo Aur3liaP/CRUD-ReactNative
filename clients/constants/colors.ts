@@ -6,6 +6,8 @@ export const Colors = {
     grayLight: "#E0E0E0",
     grayBackground: "#EFEFEF",
     grayWhite: "#FFFFFF",
+    purple: "#6f487f",
+    dark: "#414550",
   },
   dark: {
     tint: "#DC0A2D",
@@ -14,6 +16,8 @@ export const Colors = {
     grayLight: "#E0E0E0",
     grayBackground: "#EFEFEF",
     grayWhite: "#FFFFFF",
+    purple: "#6f487f",
+    dark: "#414550",
   },
   type: {
     Insecte: "#A7B723",

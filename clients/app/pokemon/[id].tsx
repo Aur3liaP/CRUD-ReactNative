@@ -11,6 +11,7 @@ import { PokemonType } from "@/components/pokemon/PokemonType";
 import { PokemonStats } from "@/components/pokemon/PokemonStats";
 import PagerView from "react-native-pager-view";
 import { useRef, useState } from "react";
+import { PokemonCatch } from "@/components/pokemon/PokemonCatch";
 
 export default function Pokemon() {
   const params = useLocalSearchParams() as {id : string}
@@ -39,6 +40,13 @@ export default function Pokemon() {
     }
   }
 
+  const onPrevious = () => {
+    pager.current?.setPage(0)
+  }
+  const onNext = () => {
+    pager.current?.setPage(2 + offset.current)
+  }
+
   return (
     <PagerView 
       ref={pager}
@@ -46,17 +54,20 @@ export default function Pokemon() {
       onPageScrollStateChanged={onPageScrollStateChanged}
       initialPage={1} style={{flex:1}}>
 
-      <PokemonView key={id - 1} id={id-1}/>
-      <PokemonView key={id} id={id}/>
-      <PokemonView key={id + 1} id={id+1}/>
+      <PokemonView key={id - 1} id={id-1} onNext={onNext} onPrevious={onPrevious}/>
+      <PokemonView key={id} id={id}  onNext={onNext} onPrevious={onPrevious}/>
+      <PokemonView key={id + 1} id={id+1}  onNext={onNext} onPrevious={onPrevious}/>
     </PagerView>
   );
-
-  return <PokemonView id={id}/>
-
 }
 
-function PokemonView({id}: {id: number}) {
+type Props = {
+  id: number,
+  onPrevious: () => void,
+  onNext: () => void,
+}
+
+function PokemonView({id, onPrevious, onNext}: Props) {
   const colors = useThemeColors();
   const { data } = useFetchQuery("/pokemons");
   const pokemons = data ?? [];
@@ -73,13 +84,6 @@ function PokemonView({id}: {id: number}) {
         <Text>Pokémon non trouvé</Text>
       </RootView>
     );
-  }
-
-  const onPrevious = () => {
-    router.replace({pathname: '/pokemon/[id]', params: { id: Math.max(id - 1, 1) },})
-  }
-  const onNext = () => {
-    router.replace({pathname: '/pokemon/[id]', params: { id: Math.min(id + 1, 151) },})
   }
 
   const isFirst = id === 1;
@@ -111,10 +115,8 @@ function PokemonView({id}: {id: number}) {
             #{id.toString().padStart(3, "0")}
           </ThemedText>
         </Row>
-
-
-          {/* TYPES */}
         <Card style={[styles.card, {overflow: 'visible'}]}>
+        {/* IMAGE */}
           <Row style={styles.imageRow}>
               {isFirst ? <View style={{width:24, height: 24}}></View> : <Pressable onPress={onPrevious}>
                 <Image
@@ -137,6 +139,8 @@ function PokemonView({id}: {id: number}) {
                     />
               </Pressable>}
           </Row>
+
+           {/* TYPES */}
             <Row gap={16}>
               <PokemonType name={pokemon.type1} />
               {pokemon.type2 && <PokemonType name={pokemon.type2} />}
@@ -163,6 +167,7 @@ function PokemonView({id}: {id: number}) {
               <PokemonStats name={"SPD"} value={pokemon.speed} color={colorType}/>
             </View>
         </Card>
+        <PokemonCatch pokemonData={pokemon}/>
       </View>
     </RootView>
   );
