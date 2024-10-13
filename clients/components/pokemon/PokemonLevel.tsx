@@ -41,7 +41,7 @@ export function PokemonLevel({ style, level, color, index, ...rest }: Props) {
   const handleUpdate = async () => {
     try {
       const response = await fetch(
-        `http://192.168.1.139:3310/api/team/${index}`,
+        `http://localhost:3310/api/team/${index}`,
         {
           method: "PUT",
           headers: {

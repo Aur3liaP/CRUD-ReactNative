@@ -36,7 +36,7 @@ export function PokemonCatch({style, pokemonData, ...rest}: Props) {
     
     const handleCatch = useCallback(async () => {
         try {
-            await axios.post("http://192.168.1.139:3310/api/team/", {
+            await axios.post("http://localhost:3310/api/team/", {
                 id: pokemonData.id,
                 pokedex_number: pokemonData.pokedex_number,
                 name: pokemonData.name,

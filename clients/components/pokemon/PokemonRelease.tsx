@@ -21,7 +21,7 @@ export function PokemonRelease({style, index, name, ...rest}: Props) {
     const handleDelete = useCallback(async () => {
         try {
           await axios.delete(
-            `http://192.168.1.139:3310/api/team/${index}`
+            `http://localhost:3310/api/team/${index}`
           );
           Alert.alert("Pokemon relaché", `Au revoir ${name} !`);
         } catch (error) {

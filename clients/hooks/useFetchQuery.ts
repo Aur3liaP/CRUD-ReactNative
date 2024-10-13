@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const endpoint = 'http://192.168.1.139:3310/api'
+const endpoint = 'http://localhost:3310/api'
 
 type API = {
     '/pokemons': Array<{
