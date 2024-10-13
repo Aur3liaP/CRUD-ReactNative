@@ -1,4 +1,4 @@
-s# Pokédex Team Rocket App
+# Pokédex Team Rocket App
 
 Bienvenue dans l'application Pokédex Team Rocket, une application mobile développée avec **React Native** et **Expo**. Cette application permet aux utilisateurs de capturer des Pokémon, de gérer leur équipe et d'interagir avec des informations détaillées sur chaque Pokémon.
 
