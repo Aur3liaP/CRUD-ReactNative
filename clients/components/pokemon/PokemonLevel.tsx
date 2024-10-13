@@ -12,6 +12,7 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "../Row";
 import { ThemedText } from "../ThemedText";
 import { useState } from "react";
+import { API_URL } from "@env" 
 
 type Props = ViewProps & {
   index: number;
@@ -41,7 +42,7 @@ export function PokemonLevel({ style, level, color, index, ...rest }: Props) {
   const handleUpdate = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3310/api/team/${index}`,
+        `${API_URL}/team/${index}`,
         {
           method: "PUT",
           headers: {

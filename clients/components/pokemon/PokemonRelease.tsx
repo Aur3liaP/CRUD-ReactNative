@@ -3,6 +3,7 @@ import { Audio } from "expo-av";
 import { ThemedText } from "../ThemedText";
 import axios from "axios";
 import { useCallback } from "react";
+import { API_URL } from "@env" 
 
 type Props = ViewProps & {
     index: number,
@@ -21,7 +22,7 @@ export function PokemonRelease({style, index, name, ...rest}: Props) {
     const handleDelete = useCallback(async () => {
         try {
           await axios.delete(
-            `http://localhost:3310/api/team/${index}`
+            `${API_URL}/team/${index}`
           );
           Alert.alert("Pokemon relaché", `Au revoir ${name} !`);
         } catch (error) {
