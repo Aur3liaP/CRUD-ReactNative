@@ -1,50 +1,82 @@
-# Welcome to your Expo app 👋
+# Pokédex Team Rocket App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bienvenue dans l'application Pokédex Team Rocket, une application mobile développée avec **React Native** et **Expo**. Cette application permet aux utilisateurs de capturer des Pokémon, de gérer leur équipe et d'interagir avec des informations détaillées sur chaque Pokémon.
 
-## Get started
+## Table des matières
 
-1. Install dependencies
+- [Fonctionnalités](#fonctionnalités)
+- [Technologies utilisées](#technologies-utilisées)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Contribuer](#contribuer)
+- [Auteurs](#auteurs)
+- [License](#license)
+
+## Fonctionnalités
+
+- Capture de Pokémon avec animation de Pokéball.
+- Gestion d'une équipe de Pokémon.
+- Affichage des détails des Pokémons, y compris leurs statistiques et types.
+- Mise à jour en temps réel des informations de l'équipe après les captures et les changements de niveaux.
+
+<video width="260" height="600" controls>
+  <source src="./assets/demonstration.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo.
+</video>
+
+## Technologies utilisées
+
+- **React Native** - Framework pour le développement d'applications mobiles.
+- **Expo** - Outil pour simplifier le développement et le déploiement d'applications React Native.
+- **Axios** - Librairie pour faire des requêtes HTTP.
+- **React Query** - Gestion de l'état pour les données asynchrones.
+- **React Navigation** - Navigation entre les différentes vues de l'application.
+
+## Installation
+
+Pour exécuter ce projet localement, suivez les étapes ci-dessous :
+
+1. Clonez le dépôt :
+
+   ```bash
+   git clone <url-du-dépôt>
+   cd pokemon-catcher-app
+   ```
+
+2. Installez les dépendances :
 
    ```bash
    npm install
    ```
-
-2. Start the app
+3. Lancez l'application :
 
    ```bash
-    npx expo start
+   npm run start
    ```
+   Ou utilisez l'aaplication mobile Expo Go pour scanner le QR code généré.
 
-In the output, you'll find options to open the app in a
+## Utilisation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Ouvrez l'application sur votre appareil ou émulateur.
+- Appuyez sur le bouton "Capturer le Pokémon !" pour capturer un Pokémon.
+- Gérer votre équipe à partir de l'écran d'équipe.
+- Naviguez entre les Pokémon à l'aide des flèches de navigation.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Contribuer
 
-## Get a fresh project
+Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet :
 
-When you're ready, run:
+- Forkez le projet.
+- Créez une nouvelle branche (git checkout -b feature/nouvelle-fonctionnalité).
+- Faites vos modifications et ajoutez des tests si nécessaire.
+- Committez vos modifications (git commit -m 'Ajout d'une nouvelle fonctionnalité').
+- Poussez la branche (git push origin feature/nouvelle-fonctionnalité).
+- Ouvrez une Pull Request.
 
-```bash
-npm run reset-project
-```
+## Auteurs
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Aurélia PIC - Développeur principal
 
-## Learn more
+## License
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Ce projet est sous licence MIT. 
