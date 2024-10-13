@@ -20,7 +20,7 @@ Bienvenue dans l'application Pokédex Team Rocket, une application mobile dével
 - Mise à jour en temps réel des informations de l'équipe après les captures et les changements de niveaux.
 
 <video width="260" height="600" controls>
-  <source src="./assets/demonstration.mp4" type="video/mp4">
+  <source src="./clients/assets/demonstration.mp4" type="video/mp4">
   Votre navigateur ne supporte pas la vidéo.
 </video>
 
