@@ -1,4 +1,4 @@
-# Pokédex Team Rocket App
+s# Pokédex Team Rocket App
 
 Bienvenue dans l'application Pokédex Team Rocket, une application mobile développée avec **React Native** et **Expo**. Cette application permet aux utilisateurs de capturer des Pokémon, de gérer leur équipe et d'interagir avec des informations détaillées sur chaque Pokémon.
 
@@ -42,7 +42,6 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous :
 
    ```bash
    git clone <url-du-dépôt>
-   cd pokemon-catcher-app
    ```
 
 2. Installez les dépendances :
@@ -52,10 +51,17 @@ Pour exécuter ce projet localement, suivez les étapes ci-dessous :
    ```
 3. Lancez l'application :
 
-   ```bash
+      ```bash
+   cd serveur
    npm run start
    ```
-   Ou utilisez l'aaplication mobile Expo Go pour scanner le QR code généré.
+      
+   ```bash
+   cd clients
+   npm run start
+   ```
+   
+   Vous pouvez utiliser l'aplication mobile Expo Go pour scanner le QR code généré ou un emulateur.
 <br>   
 
 ## 📱 Utilisation
