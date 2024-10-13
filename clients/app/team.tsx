@@ -2,13 +2,13 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { RootView } from "@/components/RootView";
 import { Row } from "@/components/Row";
 import { ThemedText } from "@/components/ThemedText";
-import { router } from "expo-router";
-import { View, Pressable, Image, StyleSheet, Text, ActivityIndicator } from "react-native";
+import { router, useFocusEffect } from "expo-router";
+import { View, Pressable, Image, StyleSheet, ActivityIndicator } from "react-native";
 import { Card } from "@/components/Card";
 import { FlatList } from "react-native-gesture-handler";
 import { useFetchQuery } from "@/hooks/useFetchQuery";
-import { PokemonCard } from "@/components/pokemon/PokemonCard";
 import { PokemonCardTeam } from "@/components/pokemon/PokemonCardTeam";
+import { useCallback } from "react";
 
 type Team = {
   id: number;
@@ -29,8 +29,15 @@ type Team = {
 
 export default function TeamPage() {
     const colors = useThemeColors()
-    const {data, isFetching} = useFetchQuery('/team');
+    const {data, isFetching, refetch} = useFetchQuery('/team');
     const pokemons = data ?? [];
+
+    useFocusEffect(
+      useCallback(() => {
+          refetch();
+      }, [refetch])
+  );
+
 
   return (
     <RootView  style={{backgroundColor: colors.purple}}>

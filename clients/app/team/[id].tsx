@@ -102,7 +102,7 @@ function PokemonView({ id, totalPokemons, onPrevious, onNext }: Props) {
   const colorType =
     pokemon?.type1 && pokemon?.type1 in Colors.type
       ? Colors.type[pokemon.type1 as keyof typeof Colors.type]
-      : colors.tint;
+      : colors.purple;
 
   if (!pokemon) {
     return (

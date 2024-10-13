@@ -7,6 +7,7 @@ import {
   type ViewProps,
   type ViewStyle,
 } from "react-native";
+import { Audio } from "expo-av"; 
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "../Row";
 import { ThemedText } from "../ThemedText";
@@ -30,7 +31,14 @@ export function PokemonLevel({ style, level, color, index, ...rest }: Props) {
     setUpdateLevel((prevLevel) => prevLevel + 1);
   };
 
-  const handleSubmit = async () => {
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+        require("@/assets/LevelUp.mp3"), {shouldPlay: true}
+    );
+    sound.playAsync();
+};
+
+  const handleUpdate = async () => {
     try {
       const response = await fetch(
         `http://192.168.1.139:3310/api/team/${index}`,
@@ -53,6 +61,11 @@ export function PokemonLevel({ style, level, color, index, ...rest }: Props) {
     }
   };
 
+  const levelUpPokemon = () => {
+    playSound();
+    handleUpdate();
+  }
+
   return (
     <Row gap={64} style={styles.rows}>
       <Row gap={50}>
@@ -72,7 +85,7 @@ export function PokemonLevel({ style, level, color, index, ...rest }: Props) {
           </View>
         </Pressable>
       </Row>
-      <Pressable onPress={handleSubmit}>
+      <Pressable onPress={levelUpPokemon}>
         <View style={styles.validate}>
           <Image
             style={{ width: 15, height: 15 }}

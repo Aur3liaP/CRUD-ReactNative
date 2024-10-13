@@ -29,7 +29,7 @@ export function PokemonCatch({style, pokemonData, ...rest}: Props) {
 
     const playSound = async () => {
         const { sound } = await Audio.Sound.createAsync(
-            require("@/assets/PokeballSound.mp3"), {shouldPlay: true}
+            require("@/assets/PokeballSound3.mp3"), {shouldPlay: true}
         );
         sound.playAsync();
     };

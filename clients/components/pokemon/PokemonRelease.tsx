@@ -1,4 +1,5 @@
 import { Alert, Pressable, StyleSheet, View, type ViewProps, type ViewStyle } from "react-native";
+import { Audio } from "expo-av"; 
 import { ThemedText } from "../ThemedText";
 import axios from "axios";
 import { useCallback } from "react";
@@ -10,7 +11,13 @@ type Props = ViewProps & {
 
 
 export function PokemonRelease({style, index, name, ...rest}: Props) {
-    
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+        require("@/assets/PokemonEscapeSound.mp3"), {shouldPlay: true}
+    );
+    sound.playAsync();
+};
+
     const handleDelete = useCallback(async () => {
         try {
           await axios.delete(
@@ -22,10 +29,15 @@ export function PokemonRelease({style, index, name, ...rest}: Props) {
         }
       }, [index]);
 
+      const releasePokemon= () => {
+        playSound();
+        handleDelete();
+      }
+
 
     return (
         <View style={styles.release}>
-            <Pressable onPress={handleDelete}>
+            <Pressable onPress={releasePokemon}>
                 <ThemedText color="grayWhite" variant="subtitle">Relacher le Pokemon !</ThemedText>
             </Pressable>
         </View>
