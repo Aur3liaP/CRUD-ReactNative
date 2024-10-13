@@ -181,13 +181,13 @@ function PokemonView({ id, totalPokemons, onPrevious, onNext }: Props) {
 
           {/* ABOUT */}
           <ThemedText style={{ color: colorType }} variant="subtitle2">
-            About
+            À propos
           </ThemedText>
           <ThemedText>{pokemon.description}</ThemedText>
 
           {/* STATS */}
           <ThemedText style={{ color: colorType }} variant="subtitle2">
-            Base stats
+            Statistiques
           </ThemedText>
           <View style={{ alignSelf: "stretch" }}>
             <PokemonStats name={"HP"} value={pokemon.hp} color={colorType} />
